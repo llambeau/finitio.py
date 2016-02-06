@@ -1,4 +1,3 @@
-from types import MethodType
 
 
 def ObjectType(properties, on_dressed=None):
@@ -19,7 +18,7 @@ def ObjectType(properties, on_dressed=None):
             return {k: getattr(self, k) for k in properties if k is not None}
 
         base.info = classmethod(info)
-        base.to_info = MethodType(to_info, None, base)
+        base.to_info = lambda frm: to_info(frm)
         return base
     return decorate
 

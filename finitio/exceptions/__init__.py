@@ -9,7 +9,7 @@ class FinitioException(Exception):
 
 class FinitioTypeError(FinitioException):
 
-    __slots__ = ['location', 'children']
+    __slots__ = ['message']
 
     def __init__(self, info):
         if 'children' in info:
@@ -25,8 +25,8 @@ class FinitioTypeError(FinitioException):
         self._root_causes_cache = None
         self._causes_cache = None
 
-        message = compute_message(info)
-        super(FinitioTypeError, self).__init__(message)
+        self.message = compute_message(info)
+        super(FinitioTypeError, self).__init__(self.message)
 
     def get_located_message(self):
         if self.location:
