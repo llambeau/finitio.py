@@ -1,9 +1,11 @@
 from . import Type
+from ..support.decorators import TypeType
 
 
+@TypeType("builtin", ['metadata'])
 class AnyType(Type):
 
-    def __init__(self, metadata):
+    def __init__(self, metadata=None):
         super(AnyType, self).__init__(metadata)
 
     def _m_dress(self, value, monad):
@@ -24,5 +26,5 @@ class AnyType(Type):
     def resolve_proxies(self):
         pass
 
-    def __rep__(self):
+    def __repr__(self):
         return '.'
