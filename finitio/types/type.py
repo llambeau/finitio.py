@@ -1,5 +1,5 @@
 from ..exceptions import DressError, UndressError
-from ..support import DressMonad
+from ..support import Monad
 
 
 class Type(object):
@@ -25,7 +25,7 @@ class Type(object):
         raise NotImplementedError('`_include` not implemented')
 
     def dress(self, value, world):
-        monad = self.m_dress(value, DressMonad(world))
+        monad = self.m_dress(value, Monad(world))
         if monad.is_success():
             return monad.result
         else:

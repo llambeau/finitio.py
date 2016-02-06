@@ -1,22 +1,22 @@
 
 
-class DressMonad(object):
+class Monad(object):
 
     __slots__ = ['world', 'result', 'error']
 
-    def __init__(self, world, result, error):
+    def __init__(self, world, result=None, error=None):
         self.world = world
         self.result = result
         self.error = error
 
     def success(self, result):
-        return DressMonad(self.world, result, None)
+        return Monad(self.world, result, None)
 
-    def failure(self, context, error, causes):
+    def failure(self, context, error, causes=None):
         error = {'error': error}
         if causes:
             error['children'] = causes
-        return DressMonad(self.world, None, error)
+        return Monad(self.world, None, error)
 
     def refine(self, base, collection, callback, on_failure):
         if base.is_success():
@@ -35,7 +35,7 @@ class DressMonad(object):
                 return base
             return on_failure(causes)
         else:
-            on_failure([base.error])
+            return on_failure([base.error])
 
     def map(self, collection, mapper, on_failure):
         result = []
@@ -50,7 +50,7 @@ class DressMonad(object):
 
             m.on_success(append)
 
-        self.refine(success, collection, callback, on_failure)
+        return self.refine(success, collection, callback, on_failure)
 
     def is_fail_fast(self):
         return self.world and self.world.failfast
@@ -64,12 +64,12 @@ class DressMonad(object):
     def on_success(self, callback):
         if self.is_failure():
             return self
-        callback(self.result)
+        return callback(self.result)
 
     def on_failure(self, callback):
-        if self.is_success:
+        if self.is_success():
             return self
-        callback(self.error)
+        return callback(self.error)
 
 #
 
