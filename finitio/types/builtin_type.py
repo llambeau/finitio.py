@@ -7,7 +7,7 @@ class BuiltinType(Type):
 
     __slots__ = ['py_type']
 
-    def __init__(self, py_type, metadata):
+    def __init__(self, py_type, metadata=None):
         super(BuiltinType, self).__init__(metadata)
         self.py_type = py_type
 
@@ -15,7 +15,7 @@ class BuiltinType(Type):
         if self.include(value):
             return monad.success(value)
         else:
-            params = [self.py_type.name, value]
+            params = [self.py_type.__name__, value]
             error = 'Invalid ${typeName}: `${value}`'
             return monad.failure(self, [error, params])
 
@@ -30,8 +30,8 @@ class BuiltinType(Type):
     def low(self):
         return self
 
-    def __rep__(self):
-        return '.' + self.py_type.name
+    def __repr__(self):
+        return '.' + self.py_type.__name__
 
     def resolve_proxies(self, system):
         pass

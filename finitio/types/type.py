@@ -18,13 +18,13 @@ class Type(object):
         to[self._generator] = self
         return to
 
-    def include(self, value):
-        return self._include(value)
+    def include(self, value, world={}):
+        return self._include(value, world)
 
-    def _include(self, value):
+    def _include(self, value, world):
         raise NotImplementedError('`_include` not implemented')
 
-    def dress(self, value, world):
+    def dress(self, value, world={}):
         monad = self.m_dress(value, Monad(world))
         if monad.is_success():
             return monad.result
