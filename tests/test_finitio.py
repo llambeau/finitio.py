@@ -10,7 +10,7 @@ Tests for `finitio` module.
 
 import unittest
 
-from finitio import finitio
+# from finitio import finitio
 
 
 class TestFinitio(unittest.TestCase):
