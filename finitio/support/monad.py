@@ -25,15 +25,15 @@ class Monad(object):
                 element = collection[i]
                 m = callback(base, element, i)
                 if m.is_failure():
-                    if not m.error.location:
+                    if 'location' not in m.error:
                         set_error_location(m.error, element, i)
                         causes.append(m.error)
                         if self.is_fail_fast():
                             break
-
-            if len(causes):
+            if len(causes) == 0:
                 return base
-            return on_failure(causes)
+            else:
+                return on_failure(causes)
         else:
             return on_failure([base.error])
 
@@ -48,7 +48,7 @@ class Monad(object):
                 result.append(x)
                 return m
 
-            m.on_success(append)
+            return m.on_success(append)
 
         return self.refine(success, collection, callback, on_failure)
 
@@ -75,9 +75,9 @@ class Monad(object):
 
 
 def set_error_location(error, element, index):
-    if element and element.name:
-        loc = element.name
+    if element and 'name' in element:
+        loc = element.__name__
     else:
         loc = index
 
-    error.location = loc
+    error['location'] = loc
