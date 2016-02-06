@@ -1,4 +1,4 @@
-from ..support import CollectionType
+from .collection_type import CollectionType
 from ..exceptions import UndressError
 
 

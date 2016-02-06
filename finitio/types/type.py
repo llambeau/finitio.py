@@ -1,13 +1,13 @@
 from ..exceptions import DressError, UndressError
-from ..support import Monad
+from ..support.monad import Monad
 
 
 class Type(object):
 
-    __slots__ = ['_metadata', '_generator']
+    __slots__ = ['metadata']
 
     def __init__(self, metadata):
-        self._metadata = metadata
+        self.metadata = metadata
 
     @staticmethod
     def factor(_from):

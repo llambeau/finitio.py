@@ -1,5 +1,5 @@
 import copy
-from . import Attribute
+from .attribute import Attribute
 from . import utils
 
 

@@ -11,7 +11,7 @@ Tests for the `DressMonad` class.
 import unittest
 from mock import MagicMock
 
-from finitio.support import Monad
+from finitio.support.monad import Monad
 
 
 class TestMonad(unittest.TestCase):

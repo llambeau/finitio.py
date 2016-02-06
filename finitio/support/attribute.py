@@ -1,5 +1,5 @@
 from ..exceptions import KeyNotFoundError
-from ..type import Type
+from ..types import Type
 
 
 class Attribute(object):

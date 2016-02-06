@@ -1,4 +1,4 @@
-from ..types import Type
+from ..types.type import Type
 
 
 class CollectionType(Type):

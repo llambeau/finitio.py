@@ -1,5 +1,5 @@
 from . import Type
-from ..support import Heading
+from ..support.heading import Heading
 from ..support import utils
 from ..exceptions import UndressError
 
