@@ -11,7 +11,7 @@ class Type(object):
 
     @staticmethod
     def factor(_from):
-        return _from[_from.keys()[0]]
+        return _from[list(_from.keys())[0]]
 
     def to_factor(self):
         to = {}
